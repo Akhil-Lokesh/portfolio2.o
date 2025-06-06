@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Akhil Kumar",
+  "name": "Akhil Kumar - Data Scientist & Developer Portfolio",
+  "description": "Portfolio showcasing data science, machine learning, and full-stack development projects by Akhil Kumar",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +11,23 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0047FF",
+  "background_color": "#091d3d",
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "technology", "developer"],
+  "lang": "en-US",
+  "scope": "/",
+  "id": "akhil-kumar-portfolio"
 }

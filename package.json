@@ -1,7 +1,28 @@
 {
   "name": "akhil-portfolio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "https://akhilkumar.dev",
+  "description": "Professional portfolio showcasing data science, machine learning, and full-stack development projects by Akhil Kumar",
+  "author": {
+    "name": "Gudapuri Akhil Kumar",
+    "email": "akhil.kumar@email.com",
+    "url": "https://akhilkumar.dev"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "data-science",
+    "machine-learning",
+    "full-stack-developer",
+    "framer-motion",
+    "tailwindcss"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akhilkumar/portfolio.git"
+  },
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -11,17 +32,29 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
+    "autoprefixer": "^10.4.21",
+    "framer-motion": "^12.15.0",
+    "postcss": "^8.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:analyze": "npm run build && npx serve -s build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write src/**/*.{ts,tsx,css,md}",
+    "type-check": "tsc --noEmit",
+    "deploy:netlify": "npm run build && netlify deploy --prod --dir=build",
+    "deploy:vercel": "npm run build && vercel --prod",
+    "serve": "npx serve -s build -l 3000"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +73,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }

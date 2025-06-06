@@ -1,10 +1,10 @@
 # Akhil Kumar's Portfolio
 
-> **"I build intelligent systems that turn complex data into measurable business value."**
+> **"I turn coffee into code, data into insights, and bugs into features (occasionally)."** 
 
 A modern, interactive portfolio showcasing data science, machine learning, and full-stack development projects. Built with React, TypeScript, and a philosophy that respects your time while rewarding curiosity.
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-000?style=for-the-badge&logo=github)](https://github.com/Akhil-Lokesh/portfolio2.o)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-000?style=for-the-badge&logo=github)](https://github.com/Akhil-Lokesh/portfolio2.o/tree/master)
 
 ## 🎯 Design Philosophy
 

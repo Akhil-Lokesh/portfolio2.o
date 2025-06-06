@@ -1,37 +1,32 @@
 import { useState, useEffect } from 'react';
+import { KONAMI_CODE, EASTER_EGG_TIMEOUTS } from '../utils/constants';
 
 export const useKonamiCode = () => {
   const [isKonamiActivated, setIsKonamiActivated] = useState(false);
   const [keySequence, setKeySequence] = useState<string[]>([]);
-  
-  // The famous Konami Code: ↑↑↓↓←→←→BA
-  const konamiCode = [
-    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-    'KeyB', 'KeyA'
-  ];
 
   useEffect(() => {
+
     const handleKeyDown = (event: KeyboardEvent) => {
       setKeySequence(prev => {
         const newSequence = [...prev, event.code];
         
         // Keep only the last 10 keys (length of Konami code)
-        if (newSequence.length > konamiCode.length) {
+        if (newSequence.length > KONAMI_CODE.length) {
           newSequence.shift();
         }
         
         // Check if the sequence matches the Konami code
-        if (newSequence.length === konamiCode.length) {
-          const isMatch = newSequence.every((key, index) => key === konamiCode[index]);
+        if (newSequence.length === KONAMI_CODE.length) {
+          const isMatch = newSequence.every((key, index) => key === KONAMI_CODE[index]);
           
           if (isMatch) {
             setIsKonamiActivated(true);
-            // Reset after 5 seconds
+            // Reset after configured timeout
             setTimeout(() => {
               setIsKonamiActivated(false);
               setKeySequence([]);
-            }, 5000);
+            }, EASTER_EGG_TIMEOUTS.konamiMode);
             return [];
           }
         }
@@ -45,7 +40,7 @@ export const useKonamiCode = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, []); // Fixed dependency
 
   return { isKonamiActivated, keySequence };
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { TECH_SKILLS } from '../../utils/constants';
 
 interface MatrixRainProps {
   isActive: boolean;
@@ -7,13 +8,6 @@ interface MatrixRainProps {
 
 const MatrixRain: React.FC<MatrixRainProps> = ({ isActive }) => {
   const [columns, setColumns] = useState<Array<{ id: number; chars: string[]; speed: number }>>([]);
-  
-  // Tech stack characters that will rain down
-  const techChars = [
-    'Python', 'React', 'JS', 'TS', 'SQL', 'AWS', 'ML', 'AI', 
-    '🐍', '⚛️', '🔷', '🟨', '☁️', '🤖', '📊', '🚀',
-    'Pandas', 'PyTorch', 'Node', 'Kafka', 'Docker', 'MongoDB'
-  ];
 
   useEffect(() => {
     if (!isActive) {
@@ -24,7 +18,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive }) => {
     const createColumn = (id: number) => ({
       id,
       chars: Array(25).fill(0).map(() => 
-        techChars[Math.floor(Math.random() * techChars.length)]
+        TECH_SKILLS[Math.floor(Math.random() * TECH_SKILLS.length)]
       ),
       speed: Math.random() * 2 + 3 // 3-5 seconds for more dramatic effect
     });
@@ -38,13 +32,13 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive }) => {
       setColumns(prev => prev.map(col => ({
         ...col,
         chars: col.chars.map(() => 
-          techChars[Math.floor(Math.random() * techChars.length)]
+          TECH_SKILLS[Math.floor(Math.random() * TECH_SKILLS.length)]
         )
       })));
     }, 500);
 
     return () => clearInterval(interval);
-  }, [isActive]);
+  }, [isActive]); // Fixed dependency
 
   if (!isActive) return null;
 

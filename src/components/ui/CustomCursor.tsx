@@ -76,7 +76,8 @@ const CustomCursor: React.FC<CustomCursorProps> = memo(({ enabled = true }) => {
       setTimeout(() => setIsRocketMode(false), 10000); // 10 seconds
       setClickCount(0);
     }
-  }, [clickCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickCount]); // handleClick is stable callback
 
   // Idle detection for sleeping cursor
   useEffect(() => {
@@ -162,7 +163,7 @@ const CustomCursor: React.FC<CustomCursorProps> = memo(({ enabled = true }) => {
         el.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, [enabled, isMobile, handleMouseMove, handleMouseEnter, handleMouseLeave]);
+  }, [enabled, isMobile, handleMouseMove, handleMouseEnter, handleMouseLeave, handleClick]);
 
   // Don't render on mobile
   if (isMobile || !enabled) return null;

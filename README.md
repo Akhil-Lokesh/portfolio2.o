@@ -1,229 +1,167 @@
-# Akhil Kumar - Portfolio Website
+# Akhil Kumar Portfolio 2.0
 
-A sophisticated, modern portfolio website showcasing the work and skills of Gudapuri Akhil Kumar, a dynamic tech professional specializing in data science, machine learning, and full-stack development.
+A modern, interactive portfolio website built with React 18, TypeScript, and Framer Motion. Features sophisticated animations, Easter eggs, and a polished user experience.
 
 ## 🌟 Features
 
-### Design Philosophy
-- **Hub-Based Navigation**: Respects user attention spans with clear, time-estimated sections
-- **User-First Approach**: Let visitors choose their exploration path
-- **Thoughtful over Flashy**: Every design decision serves a clear purpose
-- **Performance Excellence**: Sub-2 second load times with smooth 60 FPS animations
+### Core Functionality
+- **Responsive Design**: Optimized for all device sizes with Tailwind CSS
+- **Custom Cursor**: Physics-based cursor with spring animations
+- **Dark Theme**: Modern dark theme with custom color palette
+- **Smooth Navigation**: Framer Motion page transitions and animations
+- **Contact Form**: Integrated contact form with validation
+
+### Interactive Elements
+- **Easter Eggs**: Konami code activation with matrix rain effect
+- **Time-based Greetings**: Dynamic greetings based on time of day
+- **Hover Effects**: Sophisticated hover animations throughout
+- **Loading States**: Custom loading spinners and transitions
 
 ### Technical Highlights
-- **React 18 + TypeScript**: Modern, type-safe development
-- **Custom Cursor System**: Smooth spring physics with interactive feedback
-- **Sophisticated Animations**: Framer Motion for delightful micro-interactions
-- **Dark Theme Focus**: Professional deep navy (#091d3d) with accent colors
-- **Mobile-First Design**: Responsive across all devices
-- **Accessibility Compliant**: WCAG 2.1 AA standards
+- **TypeScript**: Full type safety and modern development experience
+- **Error Boundaries**: Graceful error handling with user-friendly fallbacks
+- **Lazy Loading**: Code splitting for optimal performance
+- **SEO Optimized**: Meta tags, Open Graph, and structured data
+- **Accessibility**: WCAG compliant with proper ARIA labels
 
-### Sections
-1. **Hub** - Central navigation with greeting and section preview
-2. **About** - Personal story and professional philosophy
-3. **Work** - Featured projects with detailed technical challenges
-4. **Skills** - Interactive skill visualization with proficiency levels
-5. **Contact** - Professional contact form with availability status
+## 🎨 Design System
+
+### Colors
+- **Primary**: `#0047FF` (Blue)
+- **Secondary**: `#00CFFD` (Cyan)
+- **Accent**: `#7000FF` (Purple)
+- **Background**: `#091d3d` (Dark Navy)
+- **Surface**: `#111827` (Dark Gray)
+- **Foreground**: `#F4F7FF` (Light Blue)
+
+### Typography
+- **Display**: Inter (Headings)
+- **Body**: Inter (Body text)
+- **Mono**: JetBrains Mono (Code snippets)
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
+- Node.js 18+ 
 - npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-```bash
-cd "/Users/akhil/Desktop/Portfolio 2/akhil-portfolio"
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Akhil-Lokesh/portfolio2.o.git
+   cd portfolio2.o
+   ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. Start the development server:
-```bash
-npm start
-```
+3. **Start development server**
+   ```bash
+   npm start
+   ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view in browser
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
-## 🎨 Design System
+The build artifacts will be stored in the `build/` directory.
 
-### Color Palette
-- **Primary Blue**: #0047FF (Main brand color)
-- **Secondary Cyan**: #00CFFD (Accents and highlights)
-- **Accent Purple**: #7000FF (Special emphasis)
-- **Background**: #091d3d (Deep navy - main theme)
-- **Surface**: #111827 (Card backgrounds)
-
-### Typography
-- **Body Text**: Inter (highly legible, excellent web rendering)
-- **Headers**: Plus Jakarta Sans (geometric, modern impact)
-- **Code**: JetBrains Mono (developer-focused)
-- **Signature**: Dancing Script (personal branding)
-- **Special**: Garet, Bitter, Ubuntu (specific use cases)
-
-### Animations
-- **Smooth Transitions**: 0.3s ease for interactions
-- **Spring Physics**: Custom cursor with damping: 25, stiffness: 300
-- **Staggered Reveals**: Content appears with progressive delays
-- **Hover Effects**: Subtle scale and movement feedback
-
-## 🛠 Technology Stack
-
-### Core
-- **React 18**: Latest React with concurrent features
-- **TypeScript**: Type safety and better developer experience
-- **Tailwind CSS**: Utility-first styling with custom design tokens
-- **Framer Motion**: Production-ready motion library
-
-### Routing & State
-- **React Router DOM v6**: Modern declarative routing
-- **React Context**: Theme and cursor state management
-- **Local Storage**: User preferences persistence
-
-### Performance
-- **Code Splitting**: Lazy loading for optimal bundle sizes
-- **Image Optimization**: WebP with fallbacks
-- **Font Loading**: Optimized web font strategy
-- **Accessibility**: Screen reader support and keyboard navigation
-
-## 📁 Project Structure
+## 🗂️ Project Structure
 
 ```
 src/
-├── components/
-│   ├── ui/                 # Reusable UI components
+├── components/           # React components
+│   ├── ui/              # Reusable UI components
 │   │   ├── CustomCursor.tsx
-│   │   └── Logo.tsx
-│   ├── layout/             # Layout components
-│   │   └── Header.tsx
-│   └── sections/           # Page sections
-│       ├── About.tsx
-│       ├── Work.tsx
-│       ├── Skills.tsx
-│       └── Contact.tsx
-├── pages/                  # Main pages
-│   └── Hub.tsx
-├── contexts/               # React Context providers
-│   └── ThemeContext.tsx
-├── types/                  # TypeScript definitions
-│   └── index.ts
-├── styles/                 # Global styles
-│   └── globals.css
-└── utils/                  # Helper functions
+│   │   ├── MatrixRain.tsx
+│   │   └── AkLogo.tsx
+│   ├── pages/           # Page components
+│   │   ├── Hub.tsx      # Landing page
+│   │   ├── About.tsx    # About section
+│   │   ├── Work.tsx     # Portfolio work
+│   │   ├── Skills.tsx   # Technical skills
+│   │   └── Contact.tsx  # Contact form
+│   └── ErrorBoundary.tsx
+├── hooks/               # Custom React hooks
+│   └── useKonamiCode.ts
+├── utils/               # Utility functions
+│   ├── constants.ts     # App constants
+│   ├── animations.ts    # Animation helpers
+│   ├── format.ts        # Formatting utilities
+│   └── index.ts         # Barrel exports
+├── styles/              # Global styles
+└── App.tsx              # Main app component
 ```
 
-## 🎯 Performance Targets
+## 🎮 Easter Eggs
 
-- **Initial Load**: < 2 seconds on 3G
-- **Time to Interactive**: < 3 seconds
-- **Largest Contentful Paint**: < 2.5 seconds
-- **Frame Rate**: 60 FPS during animations
-- **Accessibility**: WCAG 2.1 AA compliance
+### Konami Code
+Activate the hidden matrix rain effect:
+- **Desktop**: `↑ ↑ ↓ ↓ ← → ← → B A`
+- **Effect**: Tech skills matrix rain with achievement notification
 
-## 💼 Professional Information
+### Time-based Features
+- Dynamic greetings based on current time
+- Theme variations throughout the day
 
-### Core Value Proposition
-*"I build intelligent systems that turn complex data into measurable business value."*
+## 🛠️ Technologies Used
 
-### Skills Showcase
-- **Programming**: Python, JavaScript, TypeScript, Java
-- **Data Science**: Pandas/NumPy, PySpark, Tableau, Matplotlib
-- **Cloud & Big Data**: AWS, Apache Kafka, Cassandra, Docker/Kubernetes
-- **Databases**: MongoDB, SQL, PostgreSQL
-- **Machine Learning**: PyTorch, Collaborative Filtering
-- **Web Development**: React.js, Node.js, Express, Tailwind CSS
+### Frontend Framework
+- **React 18**: Latest React with concurrent features
+- **TypeScript**: Type-safe development
+- **React Router**: Client-side routing
 
-### Featured Projects
-1. **Large-Scale Real-Time Recommendation Engine** (2024)
-   - Processes millions of interactions per hour
-   - Sub-500ms recommendation delivery
-   - Apache Kafka, Spark, Cassandra
+### Styling & Animation
+- **Tailwind CSS**: Utility-first CSS framework
+- **Framer Motion**: Production-ready motion library
+- **Custom CSS**: Custom properties and animations
 
-2. **End-to-End Learning Management System** (2023)
-   - Role-based access control
-   - Interactive content delivery
-   - React, Node.js, MongoDB, AWS
+### Development Tools
+- **ESLint**: Code linting and formatting
+- **Prettier**: Code formatting
+- **Husky**: Git hooks for quality assurance
 
-3. **UberEATS Prototype** (2023)
-   - Real-time order tracking
-   - Dual interfaces (customer/restaurant)
-   - React, Express, Socket.io
-
-## 🔧 Development Commands
-
-```bash
-# Start development server
-npm start
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
-
-# Format code
-npm run format
-```
+### Deployment
+- **GitHub Pages**: Static site hosting
+- **GitHub Actions**: CI/CD pipeline
 
 ## 📱 Browser Support
 
-### Target Browsers
-- Chrome (last 2 versions)
-- Firefox (last 2 versions)
-- Safari (last 2 versions)
-- Edge (last 2 versions)
+- **Chrome**: Latest 2 versions
+- **Firefox**: Latest 2 versions  
+- **Safari**: Latest 2 versions
+- **Edge**: Latest 2 versions
 
-### Mobile Support
-- iOS Safari (last 2 versions)
-- Chrome Mobile (last 2 versions)
-- Samsung Internet (last 1 version)
+## 🤝 Contributing
 
-## ⚡ Performance Optimizations
+While this is a personal portfolio, suggestions and feedback are welcome:
 
-- **Bundle Splitting**: Separate chunks for each route
-- **Image Optimization**: WebP format with JPEG fallbacks
-- **Font Optimization**: Critical font loading with display: swap
-- **CSS Optimization**: Tailwind purging and minification
-- **Animation Performance**: GPU-accelerated transforms
-- **Memory Management**: Proper cleanup of event listeners
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Commit changes (`git commit -am 'Add improvement'`)
+4. Push to branch (`git push origin feature/improvement`)
+5. Open a Pull Request
 
-## 🔒 Security Features
+## 📄 License
 
-- **Content Security Policy**: Strict CSP headers
-- **XSS Prevention**: Proper input sanitization
-- **HTTPS Enforcement**: Force HTTPS in production
-- **Dependency Security**: Regular security audits
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact Information
+## 📞 Contact
 
-- **Email**: akhil.kumar@email.com
-- **LinkedIn**: linkedin.com/in/akhilkumar
-- **GitHub**: github.com/akhilkumar
-- **Status**: Currently available for new opportunities
+**Akhil Kumar**
+- **Email**: [akgudapuri@gmail.com](mailto:akgudapuri@gmail.com)
+- **LinkedIn**: [akhilgudapuri](https://linkedin.com/in/akhilgudapuri)
+- **GitHub**: [Akhil-Lokesh](https://github.com/Akhil-Lokesh)
+- **Portfolio**: [Live Demo](https://akhil-lokesh.github.io/portfolio2.o)
 
 ---
 
-## 🎨 Design Credits
-
-This portfolio implements a sophisticated design system based on:
-- Modern geometric aesthetics
-- Professional color psychology
-- User experience best practices
-- Performance-first development approach
-
-Built with attention to detail, accessibility, and user experience in mind.
-
-*Last updated: June 2025*
+*Built with ❤️ by Akhil Kumar*

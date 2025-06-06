@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import CustomCursor from './components/ui/CustomCursor';
 import MatrixRain from './components/ui/MatrixRain';
+import ErrorBoundary from './components/ErrorBoundary';
 import Hub from './pages/Hub';
-import About from './components/sections/About';
-import Work from './components/sections/Work';
-import Skills from './components/sections/Skills';
-import Contact from './components/sections/Contact';
 import { useTimeBasedEasterEggs } from './hooks/useTimeBasedEasterEggs';
 import { useKonamiCode } from './hooks/useKonamiCode';
 import { motion, AnimatePresence } from 'framer-motion';
 import './styles/globals.css';
+
+// Lazy load components for better performance
+const About = React.lazy(() => import('./components/sections/About'));
+const Work = React.lazy(() => import('./components/sections/Work'));
+const Skills = React.lazy(() => import('./components/sections/Skills'));
+const Contact = React.lazy(() => import('./components/sections/Contact'));
 
 function App() {
   const timeFeatures = useTimeBasedEasterEggs();
@@ -57,41 +60,58 @@ function App() {
   }, []);
   
   return (
-    <Router>
-      <div className="App bg-background text-foreground min-h-screen dark">
-        <CustomCursor enabled={true} />
-        <Header />
-        
-        {/* Matrix Rain Easter Egg */}
-        <MatrixRain isActive={isKonamiActivated} />
-        
-        {/* Time-Based Easter Egg Message */}
-        <AnimatePresence>
-          {timeFeatures.timeMessage && (
-            <motion.div
-              initial={{ opacity: 0, x: 300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 300 }}
-              className="fixed top-20 right-4 z-40 bg-surface/90 backdrop-blur-md border border-accent/20 rounded-xl p-3 shadow-lg"
-            >
-              <p className="text-sm text-foreground/80 font-sans">
-                {timeFeatures.timeMessage}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        
-        <main>
-          <Routes>
-            <Route path="/" element={<Hub />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/skills" element={<Skills timeFeatures={timeFeatures} konamiActive={isKonamiActivated} />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <div className="App bg-background text-foreground min-h-screen dark">
+          <CustomCursor enabled={true} />
+          <Header />
+          
+          {/* Matrix Rain Easter Egg */}
+          <MatrixRain isActive={isKonamiActivated} />
+          
+          {/* Time-Based Easter Egg Message */}
+          <AnimatePresence>
+            {timeFeatures.timeMessage && (
+              <motion.div
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 300 }}
+                className="fixed top-20 right-4 z-40 bg-surface/90 backdrop-blur-md border border-accent/20 rounded-xl p-3 shadow-lg"
+              >
+                <p className="text-sm text-foreground/80 font-sans">
+                  {timeFeatures.timeMessage}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          <main>
+            <ErrorBoundary>
+              <Suspense fallback={
+                <div className="min-h-screen flex items-center justify-center bg-background">
+                  <div className="text-center">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"
+                    />
+                    <p className="text-foreground/60 font-sans">Loading...</p>
+                  </div>
+                </div>
+              }>
+                <Routes>
+                  <Route path="/" element={<Hub />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/work" element={<Work />} />
+                  <Route path="/skills" element={<Skills timeFeatures={timeFeatures} konamiActive={isKonamiActivated} />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
+          </main>
+        </div>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

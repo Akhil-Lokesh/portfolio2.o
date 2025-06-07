@@ -146,36 +146,72 @@ const Hub: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Clean Navigation - Vertical Stack */}
+          {/* Responsive Navigation - Horizontal on Desktop, Vertical on Mobile */}
           <motion.nav 
-            className="flex flex-col items-center justify-center gap-4 text-base sm:text-lg mb-8 sm:mb-12 px-2 sm:px-0"
+            className="mb-8 sm:mb-12"
             variants={containerVariants}
           >
-            {navigationSections.map((section) => (
-              <motion.div
-                key={section.id}
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.02,
-                  y: -2,
-                  transition: { type: "spring", stiffness: 300, damping: 10 }
-                }}
-                whileTap={{ scale: 0.98, y: 0 }}
-              >
-                <Link
-                  to={section.path}
-                  className="text-foreground hover:text-primary transition-all duration-300 focus-ring px-2 py-1 font-garet font-normal tracking-wide relative whitespace-nowrap"
+            {/* Mobile: Vertical Stack (one item per line) */}
+            <div className="flex flex-col items-center justify-center gap-4 text-base sm:text-lg sm:hidden">
+              {navigationSections.map((section) => (
+                <motion.div
+                  key={section.id}
+                  variants={cardVariants}
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2,
+                    transition: { type: "spring", stiffness: 300, damping: 10 }
+                  }}
+                  whileTap={{ scale: 0.98, y: 0 }}
                 >
-                  <motion.span
-                    className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-primary"
-                    initial={{ width: 0, x: "-50%" }}
-                    whileHover={{ width: "70%", x: "-50%" }}
-                    transition={{ duration: 0.2 }}
-                  />
-                  {section.title}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    to={section.path}
+                    className="text-foreground hover:text-primary transition-all duration-300 focus-ring px-2 py-1 font-garet font-normal tracking-wide relative whitespace-nowrap"
+                  >
+                    <motion.span
+                      className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-primary"
+                      initial={{ width: 0, x: "-50%" }}
+                      whileHover={{ width: "70%", x: "-50%" }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    {section.title}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Desktop: Original Horizontal Layout with Separators */}
+            <div className="hidden sm:flex sm:items-center sm:justify-center sm:gap-4 sm:text-lg">
+              {navigationSections.map((section, index) => (
+                <React.Fragment key={section.id}>
+                  <motion.div
+                    variants={cardVariants}
+                    whileHover={{
+                      scale: 1.02,
+                      y: -2,
+                      transition: { type: "spring", stiffness: 300, damping: 10 }
+                    }}
+                    whileTap={{ scale: 0.98, y: 0 }}
+                  >
+                    <Link
+                      to={section.path}
+                      className="text-foreground hover:text-primary transition-all duration-300 focus-ring px-2 py-1 font-garet font-normal tracking-wide relative whitespace-nowrap"
+                    >
+                      <motion.span
+                        className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-primary"
+                        initial={{ width: 0, x: "-50%" }}
+                        whileHover={{ width: "70%", x: "-50%" }}
+                        transition={{ duration: 0.2 }}
+                      />
+                      {section.title}
+                    </Link>
+                  </motion.div>
+                  {index < navigationSections.length - 1 && (
+                    <span className="text-foreground/20 text-sm font-sans mx-1">|</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </motion.nav>
 
           {/* ak. logo at bottom center */}

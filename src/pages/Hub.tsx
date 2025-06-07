@@ -76,9 +76,9 @@ const Hub: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 md:px-8">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8">
       <motion.div
-        className="w-full max-w-2xl mx-auto text-center"
+        className="w-full max-w-4xl mx-auto text-center"
         variants={containerVariants}
         initial="initial"
         animate="animate"
@@ -86,10 +86,10 @@ const Hub: React.FC = () => {
           {/* Greeting Section */}
           <motion.div
             variants={greetingVariants}
-            className="mb-12"
+            className="mb-8 sm:mb-12"
           >
-            <h1 className="mb-6">
-              <div className="text-foreground font-ubuntu font-bold tracking-normal text-3xl md:text-4xl mb-3 leading-tight">Hey! this is</div>
+            <h1 className="mb-4 sm:mb-6">
+              <div className="text-foreground font-ubuntu font-bold tracking-normal text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 leading-tight">Hey! this is</div>
               <Link to="/about">
                 <motion.div 
                   className="relative inline-block cursor-pointer"
@@ -98,7 +98,7 @@ const Hub: React.FC = () => {
                 >
                   <span 
                     id="nameText"
-                    className="font-signature font-medium text-6xl md:text-8xl inline-block relative z-10"
+                    className="font-signature font-medium text-4xl sm:text-6xl md:text-8xl inline-block relative z-10"
                     style={{
                       backgroundImage: 'linear-gradient(90deg, var(--color-primary), var(--color-secondary))',
                       WebkitBackgroundClip: 'text',
@@ -112,11 +112,9 @@ const Hub: React.FC = () => {
                       const el = document.getElementById('nameText');
                       if (el) {
                         const rect = el.getBoundingClientRect();
-                        // Calculate the position relative to the element
                         const x = ((e.clientX - rect.left) / rect.width) * 100;
                         const y = ((e.clientY - rect.top) / rect.height) * 100;
                         
-                        // Update background properties
                         el.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, var(--color-primary) 0%, var(--color-secondary) 100%)`;
                         el.style.backgroundPosition = `${x}% ${y}%`;
                         el.style.backgroundSize = '300% 300%';
@@ -138,55 +136,51 @@ const Hub: React.FC = () => {
               </Link>
             </h1>
             
-            <p className="text-base md:text-lg text-foreground/85 mb-4 max-w-2xl mx-auto leading-relaxed font-bitter font-normal tracking-wide">
+            <p className="text-sm sm:text-base md:text-lg text-foreground/85 mb-3 sm:mb-4 max-w-2xl mx-auto leading-relaxed font-bitter font-normal tracking-wide px-2 sm:px-0">
               Plot twist: instead of forcing you through 47 sections about my 'passion 
               for clean code' (spoiler: who isn't?), I'm giving you the remote control.
             </p>
             
-            <p className="text-sm md:text-base text-foreground/65 mb-6 font-bitter font-light tracking-wide">
+            <p className="text-xs sm:text-sm md:text-base text-foreground/65 mb-6 sm:mb-8 font-bitter font-light tracking-wide px-2 sm:px-0">
               Revolutionary, I know. What sounds interesting?
             </p>
           </motion.div>
 
-          {/* Navigation - Perfect Typography Harmony */}
+          {/* Clean Navigation - Vertical Stack */}
           <motion.nav 
-            className="flex flex-nowrap items-center justify-center gap-4 text-lg whitespace-nowrap mb-8"
+            className="flex flex-col items-center justify-center gap-4 text-base sm:text-lg mb-8 sm:mb-12 px-2 sm:px-0"
             variants={containerVariants}
           >
-            {navigationSections.map((section, index) => (
-              <React.Fragment key={section.id}>
-                <motion.div
-                  variants={cardVariants}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -2,
-                    transition: { type: "spring", stiffness: 300, damping: 10 }
-                  }}
-                  whileTap={{ scale: 0.98, y: 0 }}
+            {navigationSections.map((section) => (
+              <motion.div
+                key={section.id}
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.02,
+                  y: -2,
+                  transition: { type: "spring", stiffness: 300, damping: 10 }
+                }}
+                whileTap={{ scale: 0.98, y: 0 }}
+              >
+                <Link
+                  to={section.path}
+                  className="text-foreground hover:text-primary transition-all duration-300 focus-ring px-2 py-1 font-garet font-normal tracking-wide relative whitespace-nowrap"
                 >
-                  <Link
-                    to={section.path}
-                    className="text-foreground hover:text-primary transition-all duration-300 focus-ring px-2 py-1 font-garet font-normal tracking-wide relative"
-                  >
-                    <motion.span
-                      className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-primary"
-                      initial={{ width: 0, x: "-50%" }}
-                      whileHover={{ width: "70%", x: "-50%" }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    {section.title}
-                  </Link>
-                </motion.div>
-                {index < navigationSections.length - 1 && (
-                  <span className="text-foreground/20 text-sm font-sans mx-1">|</span>
-                )}
-              </React.Fragment>
+                  <motion.span
+                    className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-primary"
+                    initial={{ width: 0, x: "-50%" }}
+                    whileHover={{ width: "70%", x: "-50%" }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  {section.title}
+                </Link>
+              </motion.div>
             ))}
           </motion.nav>
 
           {/* ak. logo at bottom center */}
           <motion.div 
-            className="fixed bottom-12 inset-x-0 mx-auto text-center"
+            className="fixed bottom-8 sm:bottom-12 inset-x-0 mx-auto text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.5 }}

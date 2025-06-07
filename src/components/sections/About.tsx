@@ -218,48 +218,156 @@ const About: React.FC = () => {
           </div>
           
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent"></div>
-            
-            <div className="space-y-24">
-              {/* Bachelor's Degree */}
+            {/* Desktop Timeline Layout */}
+            <div className="hidden md:block">
+              {/* Timeline Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent"></div>
+              
+              <div className="space-y-24">
+                {/* Bachelor's Degree */}
+                <motion.div 
+                  className="relative flex items-center"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {/* Left Side - Years */}
+                  <div className="w-1/2 pr-12 text-right">
+                    <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                      <div className="text-primary font-display font-bold text-2xl mb-3">
+                        2019 - 2023
+                      </div>
+                      <div className="text-foreground/60 text-base font-mono">
+                        4 Years
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Center Dot */}
+                  <motion.div 
+                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-background shadow-lg"
+                    whileHover={{ scale: 1.3 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  
+                  {/* Right Side - Education Details */}
+                  <div className="w-1/2 pl-12">
+                    <motion.div 
+                      className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-300"
+                      whileHover={{ y: -4 }}
+                    >
+                      <div className="flex items-start gap-4 mb-4">
+                        <span className="text-3xl">🎓</span>
+                        <div>
+                          <h3 className="font-display font-bold text-foreground text-xl mb-2">
+                            Bachelor's in Technology
+                          </h3>
+                          <p className="text-primary font-medium text-lg">
+                            Computer Science Engineering
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-foreground/70 font-sans text-base mb-3">
+                        Vasavi College Of Engineering
+                      </p>
+                      <div className="text-sm text-foreground/50 font-mono">
+                        Foundation in CS fundamentals, algorithms, and software development
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* Master's Degree */}
+                <motion.div 
+                  className="relative flex items-center"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {/* Left Side - Education Details */}
+                  <div className="w-1/2 pr-12 text-right">
+                    <motion.div 
+                      className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-secondary/20 transition-all duration-300"
+                      whileHover={{ y: -4 }}
+                    >
+                      <div className="flex items-start gap-4 mb-4 justify-end">
+                        <div className="text-right">
+                          <h3 className="font-display font-bold text-foreground text-xl mb-2">
+                            Master's of Engineering
+                          </h3>
+                          <p className="text-accent font-medium text-lg">
+                            Data Analytics
+                          </p>
+                        </div>
+                        <span className="text-3xl">📊</span>
+                      </div>
+                      <p className="text-foreground/70 font-sans text-base mb-3">
+                        San Jose State University
+                      </p>
+                      <div className="text-sm text-foreground/50 font-mono">
+                        Advanced data science, machine learning, and analytics specialization
+                      </div>
+                    </motion.div>
+                  </div>
+                  
+                  {/* Center Dot */}
+                  <motion.div 
+                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-secondary to-accent rounded-full border-4 border-background shadow-lg"
+                    whileHover={{ scale: 1.3 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  
+                  {/* Right Side - Years */}
+                  <div className="w-1/2 pl-12">
+                    <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                      <div className="text-secondary font-display font-bold text-2xl mb-3">
+                        2024 - 2026
+                      </div>
+                      <div className="text-foreground/60 text-base font-mono flex items-center gap-3">
+                        <span>2 Years</span>
+                        <motion.span 
+                          className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
+                          animate={{ scale: [1, 1.05, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          Current
+                        </motion.span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Mobile Timeline Layout - Stacked Vertically */}
+            <div className="md:hidden space-y-12">
+              {/* Bachelor's Degree - Mobile */}
               <motion.div 
-                className="relative flex items-center"
+                className="relative"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
               >
-                {/* Left Side - Years */}
-                <div className="w-1/2 pr-12 text-right">
-                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
-                    <div className="text-primary font-display font-bold text-2xl mb-3">
+                <div className="space-y-6">
+                  {/* Years Card */}
+                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 text-center">
+                    <div className="text-primary font-display font-bold text-3xl mb-2">
                       2019 - 2023
                     </div>
-                    <div className="text-foreground/60 text-base font-mono">
+                    <div className="text-foreground/60 text-lg font-mono">
                       4 Years
                     </div>
                   </div>
-                </div>
-                
-                {/* Center Dot */}
-                <motion.div 
-                  className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-background shadow-lg"
-                  whileHover={{ scale: 1.3 }}
-                  transition={{ duration: 0.2 }}
-                />
-                
-                {/* Right Side - Education Details */}
-                <div className="w-1/2 pl-12">
+                  
+                  {/* Education Details Card */}
                   <motion.div 
-                    className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-300"
+                    className="bg-surface/20 rounded-2xl p-6 border border-white/5 hover:border-primary/20 transition-all duration-300"
                     whileHover={{ y: -4 }}
                   >
                     <div className="flex items-start gap-4 mb-4">
                       <span className="text-3xl">🎓</span>
                       <div>
-                        <h3 className="font-display font-bold text-foreground text-xl mb-2">
+                        <h3 className="font-display font-bold text-foreground text-lg mb-2">
                           Bachelor's in Technology
                         </h3>
-                        <p className="text-primary font-medium text-lg">
+                        <p className="text-primary font-medium text-base">
                           Computer Science Engineering
                         </p>
                       </div>
@@ -274,52 +382,19 @@ const About: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Master's Degree */}
+              {/* Master's Degree - Mobile */}
               <motion.div 
-                className="relative flex items-center"
+                className="relative"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
               >
-                {/* Left Side - Education Details */}
-                <div className="w-1/2 pr-12 text-right">
-                  <motion.div 
-                    className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-secondary/20 transition-all duration-300"
-                    whileHover={{ y: -4 }}
-                  >
-                    <div className="flex items-start gap-4 mb-4 justify-end">
-                      <div className="text-right">
-                        <h3 className="font-display font-bold text-foreground text-xl mb-2">
-                          Master's of Engineering
-                        </h3>
-                        <p className="text-accent font-medium text-lg">
-                          Data Analytics
-                        </p>
-                      </div>
-                      <span className="text-3xl">📊</span>
-                    </div>
-                    <p className="text-foreground/70 font-sans text-base mb-3">
-                      San Jose State University
-                    </p>
-                    <div className="text-sm text-foreground/50 font-mono">
-                      Advanced data science, machine learning, and analytics specialization
-                    </div>
-                  </motion.div>
-                </div>
-                
-                {/* Center Dot */}
-                <motion.div 
-                  className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-secondary to-accent rounded-full border-4 border-background shadow-lg"
-                  whileHover={{ scale: 1.3 }}
-                  transition={{ duration: 0.2 }}
-                />
-                
-                {/* Right Side - Years */}
-                <div className="w-1/2 pl-12">
-                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
-                    <div className="text-secondary font-display font-bold text-2xl mb-3">
+                <div className="space-y-6">
+                  {/* Years Card */}
+                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 text-center">
+                    <div className="text-secondary font-display font-bold text-3xl mb-2">
                       2024 - 2026
                     </div>
-                    <div className="text-foreground/60 text-base font-mono flex items-center gap-3">
+                    <div className="text-foreground/60 text-lg font-mono flex items-center justify-center gap-3">
                       <span>2 Years</span>
                       <motion.span 
                         className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
@@ -330,6 +405,30 @@ const About: React.FC = () => {
                       </motion.span>
                     </div>
                   </div>
+                  
+                  {/* Education Details Card */}
+                  <motion.div 
+                    className="bg-surface/20 rounded-2xl p-6 border border-white/5 hover:border-secondary/20 transition-all duration-300"
+                    whileHover={{ y: -4 }}
+                  >
+                    <div className="flex items-start gap-4 mb-4">
+                      <span className="text-3xl">📊</span>
+                      <div>
+                        <h3 className="font-display font-bold text-foreground text-lg mb-2">
+                          Master's of Engineering
+                        </h3>
+                        <p className="text-accent font-medium text-base">
+                          Data Analytics
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-foreground/70 font-sans text-base mb-3">
+                      San Jose State University
+                    </p>
+                    <div className="text-sm text-foreground/50 font-mono">
+                      Advanced data science, machine learning, and analytics specialization
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>

@@ -115,9 +115,13 @@ const CustomCursor: React.FC<CustomCursorProps> = memo(({ enabled = true }) => {
     }
   }, [isTrailMode]);
 
-  // Handle hover states
-  const handleMouseEnter = useCallback(() => setIsHovering(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovering(false), []);
+  // Handle hover states using event delegation
+  const handleMouseOver = useCallback((e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    // Check if the target or any parent is an interactive element
+    const isInteractive = target.closest('a, button, [data-cursor-hover], [data-cursor], [role="button"], input, textarea');
+    setIsHovering(!!isInteractive);
+  }, []);
 
   useEffect(() => {
     if (!enabled || isMobile) {
@@ -142,28 +146,18 @@ const CustomCursor: React.FC<CustomCursorProps> = memo(({ enabled = true }) => {
 
     document.addEventListener('mousemove', throttledMouseMove);
     document.addEventListener('click', handleClick);
-
-    // Add hover detection for interactive elements
-    const interactiveElements = document.querySelectorAll(
-      'a, button, [data-cursor-hover], [data-cursor], [role="button"], input, textarea'
-    );
-
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    
+    // Use event delegation for hover detection
+    // This works for dynamically added elements too
+    document.addEventListener('mouseover', handleMouseOver);
 
     return () => {
       document.body.removeAttribute('data-custom-cursor');
       document.removeEventListener('mousemove', throttledMouseMove);
       document.removeEventListener('click', handleClick);
-      
-      interactiveElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
+      document.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [enabled, isMobile, handleMouseMove, handleMouseEnter, handleMouseLeave, handleClick]);
+  }, [enabled, isMobile, handleMouseMove, handleMouseOver, handleClick]);
 
   // Don't render on mobile
   if (isMobile || !enabled) return null;

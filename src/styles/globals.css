@@ -102,10 +102,11 @@ body {
 }
 
 /* Custom cursor - hide default cursor when custom cursor is active */
-[data-custom-cursor="true"] body,
-[data-custom-cursor="true"] a,
-[data-custom-cursor="true"] button,
-[data-custom-cursor="true"] [role="button"] {
+body[data-custom-cursor="true"],
+body[data-custom-cursor="true"] *,
+body[data-custom-cursor="true"] a,
+body[data-custom-cursor="true"] button,
+body[data-custom-cursor="true"] [role="button"] {
   cursor: none !important;
 }
 

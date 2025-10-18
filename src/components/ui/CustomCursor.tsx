@@ -18,7 +18,7 @@ const CustomCursor: React.FC<CustomCursorProps> = memo(({ enabled = true }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const springConfig = { damping: 25, stiffness: 300 };
+  const springConfig = { damping: 20, stiffness: 350 };
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
 

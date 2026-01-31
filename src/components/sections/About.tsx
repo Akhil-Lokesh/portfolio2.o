@@ -147,7 +147,7 @@ const About: React.FC = () => {
                 className="text-center bg-surface/30 rounded-xl p-4 border border-white/5"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="text-2xl font-display font-bold text-primary">3+</div>
+                <div className="text-2xl font-display font-bold text-primary">7</div>
                 <div className="text-sm text-foreground/70">Major Projects</div>
               </motion.div>
               <motion.div 

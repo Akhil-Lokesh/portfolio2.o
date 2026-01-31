@@ -17,7 +17,7 @@ const Hub: React.FC = () => {
     {
       id: 'work',
       title: 'My Work',
-      description: '3 projects that solved real problems',
+      description: '7 projects that solved real problems',
       timeEstimate: '5 min explore',
       icon: '💻',
       path: '/work'

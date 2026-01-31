@@ -46,7 +46,8 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
         { name: 'Pandas/NumPy', category: 'data-science', description: 'Data manipulation and numerical computing', icon: '🐼' },
         { name: 'PySpark', category: 'data-science', description: 'Big data processing and analytics', icon: '⚡' },
         { name: 'Tableau', category: 'data-science', description: 'Interactive data visualization', icon: '📈' },
-        { name: 'Matplotlib/Seaborn', category: 'data-science', description: 'Statistical plotting and visualization', icon: '📊' }
+        { name: 'Matplotlib/Seaborn', category: 'data-science', description: 'Statistical plotting and visualization', icon: '📊' },
+        { name: 'Plotly', category: 'data-science', description: 'Interactive web-based visualizations', icon: '📉' }
       ]
     },
     {
@@ -95,7 +96,9 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
         { name: 'SQL', category: 'database-systems', description: 'Relational database queries and optimization', icon: '🗃️' },
         { name: 'MongoDB', category: 'database-systems', description: 'Document-based NoSQL database', icon: '🍃' },
         { name: 'PostgreSQL', category: 'database-systems', description: 'Advanced relational database', icon: '🐘' },
-        { name: 'Apache Cassandra', category: 'database-systems', description: 'Distributed NoSQL for high-scale apps', icon: '💎' }
+        { name: 'MySQL', category: 'database-systems', description: 'Relational database for web applications', icon: '🐬' },
+        { name: 'Apache Cassandra', category: 'database-systems', description: 'Distributed NoSQL for high-scale apps', icon: '💎' },
+        { name: 'Neo4J', category: 'database-systems', description: 'Graph database for relationship analysis', icon: '🕸️' }
       ]
     },
     {
@@ -106,9 +109,25 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
       color: 'from-secondary to-accent',
       skills: [
         { name: 'AWS (EC2, EMR)', category: 'cloud-infrastructure', description: 'Cloud computing and big data services', icon: '🌩️' },
+        { name: 'Google Cloud (BigQuery)', category: 'cloud-infrastructure', description: 'Cloud data warehouse and analytics', icon: '🌐' },
+        { name: 'Snowflake', category: 'cloud-infrastructure', description: 'Cloud data platform and warehouse', icon: '❄️' },
         { name: 'Docker/Kubernetes', category: 'cloud-infrastructure', description: 'Containerization and orchestration', icon: '📦' },
         { name: 'Apache Kafka', category: 'cloud-infrastructure', description: 'Real-time data streaming platform', icon: '🌊' },
         { name: 'Hadoop HDFS', category: 'cloud-infrastructure', description: 'Distributed file system', icon: '🗂️' }
+      ]
+    },
+    {
+      name: 'data-engineering',
+      label: 'Data Engineering',
+      icon: '🔧',
+      description: 'Building robust data pipelines and transformation workflows',
+      color: 'from-accent to-primary',
+      skills: [
+        { name: 'Apache Airflow', category: 'data-engineering', description: 'Workflow orchestration and scheduling', icon: '🌬️' },
+        { name: 'dbt', category: 'data-engineering', description: 'Data transformation and modeling', icon: '🔄' },
+        { name: 'Apache Spark', category: 'data-engineering', description: 'Distributed data processing engine', icon: '✨' },
+        { name: 'Spark Streaming', category: 'data-engineering', description: 'Real-time stream processing', icon: '⚡' },
+        { name: 'ETL/ELT Pipelines', category: 'data-engineering', description: 'Data integration and transformation', icon: '🔀' }
       ]
     },
     {

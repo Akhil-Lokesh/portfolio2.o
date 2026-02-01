@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { NavigationSection } from '../types';
 import Logo from '../components/ui/Logo';
+import FlowingBackground from '../components/ui/FlowingBackground';
 
 const Hub: React.FC = () => {
   const navigationSections: NavigationSection[] = [
@@ -76,9 +77,10 @@ const Hub: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 relative">
+      <FlowingBackground />
       <motion.div
-        className="w-full max-w-4xl mx-auto text-center"
+        className="w-full max-w-4xl mx-auto text-center relative z-10"
         variants={containerVariants}
         initial="initial"
         animate="animate"

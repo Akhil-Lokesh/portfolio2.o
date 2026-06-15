@@ -85,7 +85,7 @@ src/
 
 ### F. Work filtering
 - Filter bar above the project list: dedup'd technology chips + year toggles, derived from the `projects` data at render.
-- Selection is **match-any**: a project shows if it includes *any* selected tech (and/or matches a selected year). "All" chip resets; a live count shows how many match.
+- Selection combines as **(any selected tech) AND (any selected year)**: within a dimension it is match-any (OR); across the two dimensions it is AND. With nothing selected, all projects show. "All" chip clears every selection; a live count shows how many match.
 - Reflow animates via Framer `layout` on the list + `AnimatePresence` for card enter/exit. Expand/collapse details behavior is unchanged.
 - Acceptance: selecting chips filters and animates the grid; "All" resets; count is accurate; details still expand.
 

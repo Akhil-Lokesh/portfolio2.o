@@ -19,6 +19,10 @@ export interface Project {
   technologies: string[];
   githubUrl: string;
   year: number;
+  hook?: string;        // one-line, craft-aimed punch line (added during voice pass)
+  liveUrl?: string;     // optional live demo
+  image?: string;       // optional screenshot path under public/
+  featured?: boolean;   // marks the homepage hero project
 }
 
 // Skill types

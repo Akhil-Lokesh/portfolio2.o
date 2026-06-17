@@ -5,11 +5,27 @@ import { projects } from '../../data/projects';
 import Reveal from '../interactive/Reveal';
 import MagneticButton from '../interactive/MagneticButton';
 import TiltCard from '../interactive/TiltCard';
+import { filterProjects } from './workFilter';
 
 const MotionLink = motion(Link);
 
 const Work: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  const [selectedYears, setSelectedYears] = useState<number[]>([]);
+
+  const allTechs = Array.from(new Set(projects.flatMap((p) => p.technologies))).sort();
+  const allYears = Array.from(new Set(projects.map((p) => p.year))).sort((a, b) => b - a);
+  const visibleProjects = filterProjects(projects, selectedTechs, selectedYears);
+
+  const toggleTech = (tech: string) =>
+    setSelectedTechs((prev) => (prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech]));
+  const toggleYear = (year: number) =>
+    setSelectedYears((prev) => (prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]));
+  const clearFilters = () => {
+    setSelectedTechs([]);
+    setSelectedYears([]);
+  };
 
   const containerVariants = {
     initial: { opacity: 0 },
@@ -51,10 +67,61 @@ const Work: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Filter bar */}
+        <motion.div variants={projectVariants} className="mb-8">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <button
+              type="button"
+              onClick={clearFilters}
+              className={`text-xs font-mono px-3 py-1 rounded-full border transition-colors ${
+                selectedTechs.length === 0 && selectedYears.length === 0
+                  ? 'border-primary/50 text-primary bg-primary/10'
+                  : 'border-white/10 text-foreground/60 hover:text-foreground hover:border-white/20'
+              }`}
+            >
+              All
+            </button>
+            {allYears.map((year) => (
+              <button
+                key={year}
+                type="button"
+                onClick={() => toggleYear(year)}
+                className={`text-xs font-mono px-3 py-1 rounded-full border transition-colors ${
+                  selectedYears.includes(year)
+                    ? 'border-secondary/60 text-secondary bg-secondary/10'
+                    : 'border-white/10 text-foreground/60 hover:text-foreground hover:border-white/20'
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {allTechs.map((tech) => (
+              <button
+                key={tech}
+                type="button"
+                onClick={() => toggleTech(tech)}
+                className={`text-xs font-mono px-3 py-1 rounded-full border transition-colors ${
+                  selectedTechs.includes(tech)
+                    ? 'border-primary/50 text-primary bg-primary/10'
+                    : 'border-white/10 text-foreground/55 hover:text-foreground hover:border-white/20'
+                }`}
+              >
+                {tech}
+              </button>
+            ))}
+          </div>
+          <p className="mt-3 text-xs font-mono text-foreground/40">
+            Showing {visibleProjects.length} of {projects.length} projects
+          </p>
+        </motion.div>
+
         {/* Projects Grid */}
-        <div className="space-y-8">
-          {projects.map((project) => (
-            <motion.div key={project.id} variants={projectVariants}>
+        <motion.div layout className="space-y-8">
+          <AnimatePresence>
+          {visibleProjects.map((project) => (
+            <motion.div key={project.id} variants={projectVariants} layout exit={{ opacity: 0, scale: 0.95 }}>
               <TiltCard className="bg-surface/30 rounded-2xl border border-white/5 overflow-hidden hover:border-white/10 transition-all duration-300">
               <div className="p-6 md:p-8">
                 <div className="flex flex-col md:flex-row md:items-start justify-between mb-6">
@@ -195,7 +262,8 @@ const Work: React.FC = () => {
               </TiltCard>
             </motion.div>
           ))}
-        </div>
+          </AnimatePresence>
+        </motion.div>
 
         {/* Bottom CTA */}
         <Reveal className="text-center mt-16">

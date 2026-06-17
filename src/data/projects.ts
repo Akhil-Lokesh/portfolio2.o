@@ -5,6 +5,7 @@ export const projects: Project[] = [
     id: 'spotify-analytics',
     title: 'Spotify Artist Analytics',
     description: 'Modern data stack pipeline processing 73K+ music streaming records with automated ETL/ELT workflows and 40% faster processing through incremental loading.',
+    hook: 'Processes 73K records without manual babysitting — the pipeline reruns itself while I sleep.',
     detailedDescription: 'Built an end-to-end data engineering pipeline using the modern data stack approach, orchestrating data flows from Spotify API through transformation to visualization.',
     keyFeatures: [
       'Airflow DAGs for orchestration with dbt transformation models',
@@ -22,6 +23,7 @@ export const projects: Project[] = [
     id: 'spotify-streaming',
     title: 'Spotify Trend Analysis',
     description: 'Real-time streaming analytics processing 1M+ interactions with advanced probabilistic algorithms achieving sub-5% cardinality estimation error.',
+    hook: 'A million events answered in constant memory. Approximate on purpose, and honest about the error bars.',
     detailedDescription: 'Developed a real-time data pipeline for streaming analytics using Kafka and Spark, implementing advanced algorithms for efficient large-scale data processing.',
     keyFeatures: [
       'Apache Kafka + Spark Streaming for real-time processing pipeline',
@@ -39,6 +41,7 @@ export const projects: Project[] = [
     id: 'airline-odyssey',
     title: 'Airline Data Odyssey',
     description: 'Cloud data warehouse analyzing post-COVID airline industry patterns with star schema design and Neo4J graph analysis for flight delays.',
+    hook: 'Got a graph database and a data warehouse to agree on why your flight was late.',
     detailedDescription: 'Built a comprehensive analytics platform on Google Cloud for post-COVID airline industry analysis, combining traditional warehousing with graph database capabilities.',
     keyFeatures: [
       'BigQuery cloud warehouse with star schema dimensional modeling',
@@ -56,6 +59,7 @@ export const projects: Project[] = [
     id: 'recommendation-engine',
     title: 'Large-Scale Recommendation Engine',
     description: 'Distributed recommendation system processing 1M+ user interactions with sub-second latency and 99.9% uptime using collaborative filtering.',
+    hook: 'A million interactions, answered in under a second — nobody waits around for a "you might also like".',
     detailedDescription: 'Designed a scalable recommendation engine combining batch and real-time processing for dynamic, personalized recommendations across a distributed cluster.',
     keyFeatures: [
       'Collaborative Filtering with ALS algorithm on Apache Spark',
@@ -67,12 +71,14 @@ export const projects: Project[] = [
     technicalChallenge: 'Achieving sub-second latency while processing millions of interactions required a lambda architecture combining pre-computed batch recommendations with real-time updates.',
     technologies: ['Apache Spark', 'Kafka', 'Cassandra', 'HDFS', 'Python', 'ALS'],
     githubUrl: '',
-    year: 2024
+    year: 2024,
+    featured: true
   },
   {
     id: 'air-pollution',
     title: 'Air Pollution USA Analysis',
     description: 'Environmental public health analysis revealing 30% pollution reduction during COVID-19 lockdowns across PM2.5, PM10, NO2, and O3 pollutants.',
+    hook: 'Found the 30% pandemic pollution drop in the data before the headlines did.',
     detailedDescription: 'Conducted comprehensive analysis of US air pollution data (2019-2020) to identify patterns, geographic hotspots, and the impact of COVID-19 lockdowns on air quality.',
     keyFeatures: [
       'Multi-pollutant analysis: PM2.5, PM10, NO2, and O3 tracking',
@@ -90,6 +96,7 @@ export const projects: Project[] = [
     id: 'learning-management',
     title: 'Learning Management System',
     description: 'Full-stack LMS supporting 500+ concurrent users with role-based access, AWS auto-scaling, and sub-200ms query response times.',
+    hook: '500 students hammering it at once. It did not flinch (much).',
     detailedDescription: 'Developed a comprehensive learning management platform with distinct interfaces for faculty, students, and admins, deployed on AWS with high availability architecture.',
     keyFeatures: [
       'Role-based access control (RBAC) for faculty, students, and admins',
@@ -107,6 +114,7 @@ export const projects: Project[] = [
     id: 'ubereats-prototype',
     title: 'UberEATS Prototype',
     description: 'Full-stack food delivery application with distinct customer and restaurant interfaces, secure authentication, and real-time order processing.',
+    hook: 'Two apps, one schema, zero double-charged dinners.',
     detailedDescription: 'Created a complete food delivery platform prototype with separate user experiences for customers and restaurants, featuring secure transactions and responsive design.',
     keyFeatures: [
       'Dual interfaces: customer ordering and restaurant management',

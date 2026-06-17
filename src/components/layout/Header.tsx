@@ -47,7 +47,7 @@ const Header: React.FC = () => {
             <Logo size="md" animated={true} />
           </motion.div>
           
-          {/* Hub link with creative animation */}
+          {/* Home link with creative animation */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.1, duration: 0.4 }}
               >
-                ← Hub
+                ← Home
               </motion.span>
             </Link>
           </motion.div>

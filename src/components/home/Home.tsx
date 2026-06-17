@@ -96,6 +96,12 @@ const Home: React.FC = () => {
             </a>
           </MagneticButton>
         </motion.div>
+
+        <motion.p variants={item} className="mt-5 text-xs font-mono text-foreground/40">
+          press{' '}
+          <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-foreground/60">⌘K</kbd>
+          {' '}to jump anywhere
+        </motion.p>
       </motion.div>
 
       <motion.div

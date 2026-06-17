@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/layout/Header';
 import CustomCursor from './components/ui/CustomCursor';
@@ -7,6 +7,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import AnimatedRoutes from './components/interactive/AnimatedRoutes';
 import ScrollToTop from './components/interactive/ScrollToTop';
 import ScrollProgress from './components/interactive/ScrollProgress';
+import CommandPalette from './components/interactive/CommandPalette';
 import { useTimeBasedEasterEggs } from './hooks/useTimeBasedEasterEggs';
 import { useKonamiCode } from './hooks/useKonamiCode';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,6 +16,11 @@ import './styles/globals.css';
 function App() {
   const timeFeatures = useTimeBasedEasterEggs();
   const { isKonamiActivated } = useKonamiCode();
+  const [matrixManual, setMatrixManual] = useState(false);
+  const triggerMatrix = useCallback(() => {
+    setMatrixManual(true);
+    setTimeout(() => setMatrixManual(false), 8000);
+  }, []);
 
   // Add dark theme class to document on mount
   React.useEffect(() => {
@@ -62,10 +68,11 @@ function App() {
           <CustomCursor enabled={true} />
           <ScrollToTop />
           <ScrollProgress />
+          <CommandPalette onTriggerMatrix={triggerMatrix} />
           <Header />
 
           {/* Matrix Rain Easter Egg */}
-          <MatrixRain isActive={isKonamiActivated} />
+          <MatrixRain isActive={isKonamiActivated || matrixManual} />
 
           {/* Time-Based Easter Egg Message */}
           <AnimatePresence>

@@ -1,6 +1,3 @@
-// Theme types
-export type Theme = 'light' | 'dark';
-
 // Navigation types
 export interface NavigationSection {
   id: string;
@@ -28,33 +25,24 @@ export interface Project {
 export interface Skill {
   name: string;
   category: string;
-  level: number; // 1-5
+  level?: number; // 1-5
   description?: string;
+  icon?: string;
 }
 
-export interface SkillCategory {
+export interface TechDomain {
   name: string;
+  label: string;
   skills: Skill[];
   color: string;
+  description: string;
+  icon: string;
 }
 
-// Contact types
-export interface ContactInfo {
-  email: string;
-  linkedin: string;
-  github: string;
-  location: string;
-  availability: string;
-}
-
-// Animation types
-export interface SpringConfig {
-  damping: number;
-  stiffness: number;
-}
-
-// Component props types
-export interface BaseComponentProps {
-  className?: string;
-  children?: React.ReactNode;
+// Time-based easter egg features
+export interface TimeBasedFeatures {
+  isLateNight: boolean;
+  isFridayAfternoon: boolean;
+  isProgrammerDay: boolean;
+  timeMessage: string | null;
 }

@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
-
-interface TimeBasedFeatures {
-  isLateNight: boolean;
-  isFridayAfternoon: boolean;
-  isProgrammerDay: boolean;
-  timeMessage: string | null;
-}
+import { TimeBasedFeatures } from '../types';
 
 export const useTimeBasedEasterEggs = (): TimeBasedFeatures => {
   const [features, setFeatures] = useState<TimeBasedFeatures>({

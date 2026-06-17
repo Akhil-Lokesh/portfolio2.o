@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Project } from '../../types';
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  detailedDescription: string;
-  keyFeatures: string[];
-  technicalChallenge: string;
-  technologies: string[];
-  githubUrl: string;
-  year: number;
-}
+const MotionLink = motion(Link);
 
 const Work: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -180,7 +172,7 @@ const Work: React.FC = () => {
 
         {/* Projects Grid */}
         <div className="space-y-8">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={projectVariants}
@@ -316,21 +308,21 @@ const Work: React.FC = () => {
           <p className="text-foreground/60 font-sans mb-6">
             Interested in working together on the next challenge?
           </p>
-          <motion.a
-            href="/contact"
+          <MotionLink
+            to="/contact"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
             Let's discuss your project
-            <motion.span 
+            <motion.span
               className="ml-2"
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               →
             </motion.span>
-          </motion.a>
+          </MotionLink>
         </motion.div>
       </motion.div>
     </div>

@@ -7,179 +7,118 @@ interface LogoProps {
   animated?: boolean;
 }
 
-type MessageState = {
-  message: string;
-  currentIndex: number;
-  displayedText: string;
-  isTyping: boolean;
-};
+type Phase = 'idle' | 'typing' | 'pausing' | 'deleting';
 
-const Logo: React.FC<LogoProps> = ({ 
-  size = 'md', 
+const LOGO_TEXT = 'ak.';
+const TYPING_SPEED = 70; // ms per character
+const DELETE_SPEED = 50; // ms per character (faster than typing)
+const PAUSE_DURATION = 3000; // ms a finished message stays before deleting
+
+// Messages to cycle through on regular clicks
+const MESSAGES = ['Hello!', 'Whatsup?', 'I like doing this lets start again!'];
+
+const Logo: React.FC<LogoProps> = ({
+  size = 'md',
   className = '',
-  animated = true 
+  animated = true
 }) => {
-  // Messages to cycle through
-  const messages = [
-    "Hello!",
-    "Whatsup?",
-    "I like doing this lets start again!"
-  ];
-  
-  // State for message and typing
-  const [messageState, setMessageState] = useState<MessageState>({
-    message: "ak.",
-    currentIndex: 0,
-    displayedText: "ak.",
-    isTyping: false
-  });
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [target, setTarget] = useState<string>(LOGO_TEXT);
+  const [displayed, setDisplayed] = useState<string>(LOGO_TEXT);
   const [clickCount, setClickCount] = useState(0);
   const [showAchievement, setShowAchievement] = useState(false);
-  
+
   const messageIndexRef = useRef(0);
-  const typingSpeedRef = useRef(70); // ms per character
-  
-  // Handle logo click with evolution
+
+  const isAnimating = phase === 'typing' || phase === 'deleting';
+
+  // Handle logo click with click-count evolution
   const handleLogoClick = () => {
-    if (messageState.isTyping) return;
-    
-    // Increment click count
+    // Ignore clicks mid-animation so sequences don't overlap
+    if (phase !== 'idle') return;
+
     const newClickCount = clickCount + 1;
     setClickCount(newClickCount);
-    
-    // Evolution messages based on click count
-    let evolutionMessage = "";
+
+    let nextMessage: string;
     if (newClickCount === 5) {
-      evolutionMessage = "ak.exe";
+      nextMessage = 'ak.exe';
     } else if (newClickCount === 10) {
-      evolutionMessage = "ak.jpg"; // corrupted file joke
+      nextMessage = 'ak.jpg'; // corrupted file joke
     } else if (newClickCount === 20) {
-      evolutionMessage = "ak.gif"; // with sparkle animation
+      nextMessage = 'ak.gif'; // with sparkle animation
     } else if (newClickCount === 50) {
-      evolutionMessage = "Achievement Unlocked! 🏆";
+      nextMessage = 'Achievement Unlocked! 🏆';
       setShowAchievement(true);
-      setTimeout(() => setShowAchievement(false), 3000);
-    }
-    
-    // Use evolution message or regular cycling
-    let targetMessage: string;
-    if (evolutionMessage) {
-      targetMessage = evolutionMessage;
     } else {
-      // Get next message index for regular cycling
-      const nextIndex = (messageIndexRef.current + 1) % messages.length;
+      const nextIndex = (messageIndexRef.current + 1) % MESSAGES.length;
       messageIndexRef.current = nextIndex;
-      targetMessage = messages[nextIndex];
+      nextMessage = MESSAGES[nextIndex];
     }
-    
-    // Start typing animation with the target message
-    setMessageState(prev => ({
-      ...prev,
-      message: targetMessage,
-      currentIndex: 0,
-      displayedText: "",
-      isTyping: true
-    }));
+
+    setTarget(nextMessage);
+    setDisplayed('');
+    setPhase('typing');
   };
-  
-  // Effect for typing characters one by one
+
+  // Auto-hide the achievement popup
   useEffect(() => {
-    if (!messageState.isTyping) return;
-    
-    // If we've typed the complete message
-    if (messageState.currentIndex >= messageState.message.length) {
-      // Typing is complete
-      setMessageState(prev => ({
-        ...prev,
-        isTyping: false
-      }));
+    if (!showAchievement) return;
+    const timer = setTimeout(() => setShowAchievement(false), 3000);
+    return () => clearTimeout(timer);
+  }, [showAchievement]);
+
+  // Single effect drives the whole typing/pausing/deleting state machine.
+  // Every branch schedules exactly one timer and cleans it up, so it is
+  // safe under React.StrictMode's double-invocation.
+  useEffect(() => {
+    if (phase === 'typing') {
+      if (displayed.length < target.length) {
+        const timer = setTimeout(
+          () => setDisplayed(target.slice(0, displayed.length + 1)),
+          TYPING_SPEED
+        );
+        return () => clearTimeout(timer);
+      }
+      // Fully typed: the resting logo stops here; any other message pauses then deletes.
+      setPhase(target === LOGO_TEXT ? 'idle' : 'pausing');
       return;
     }
-    
-    // Type the next character
-    const typingTimer = setTimeout(() => {
-      setMessageState(prev => ({
-        ...prev,
-        currentIndex: prev.currentIndex + 1,
-        displayedText: prev.message.substring(0, prev.currentIndex + 1)
-      }));
-    }, typingSpeedRef.current);
-    
-    return () => clearTimeout(typingTimer);
-  }, [messageState.isTyping, messageState.currentIndex, messageState.message]);
-  
-  // Effect for resetting to logo after message is complete
-  useEffect(() => {
-    // Only set reset timer when a message is fully displayed and it's not the logo
-    if (!messageState.isTyping && 
-        messageState.displayedText !== "ak." && 
-        messageState.displayedText.length > 0) {
-      
-      const resetTimer = setTimeout(() => {
-        // Start backspace effect
-        startBackspaceEffect();
-      }, 3000);
-      
-      return () => clearTimeout(resetTimer);
+
+    if (phase === 'pausing') {
+      const timer = setTimeout(() => setPhase('deleting'), PAUSE_DURATION);
+      return () => clearTimeout(timer);
     }
-  }, [messageState.isTyping, messageState.displayedText]);
-  
-  // Function to handle backspace effect
-  const startBackspaceEffect = () => {
-    // Set to backspace mode but don't change the message content yet
-    setMessageState(prev => ({
-      ...prev,
-      isTyping: true,
-      // We'll keep the current message until backspacing is complete
-    }));
-    
-    // Start backspace animation
-    const backspaceInterval = setInterval(() => {
-      setMessageState(prev => {
-        // If text is empty, clear the interval and prepare for typing the logo
-        if (prev.displayedText.length === 0) {
-          clearInterval(backspaceInterval);
-          
-          // Start typing the logo after a tiny delay
-          setTimeout(() => {
-            setMessageState({
-              message: "ak.",
-              currentIndex: 0,
-              displayedText: "",
-              isTyping: true
-            });
-          }, 200);
-          
-          return {
-            ...prev,
-            isTyping: false // Temporarily pause typing indicator
-          };
-        }
-        
-        // Otherwise, remove one character
-        return {
-          ...prev,
-          displayedText: prev.displayedText.substring(0, prev.displayedText.length - 1)
-        };
-      });
-    }, 50); // Backspace speed - faster than typing
-  };
-    
+
+    if (phase === 'deleting') {
+      if (displayed.length > 0) {
+        const timer = setTimeout(
+          () => setDisplayed(displayed.slice(0, -1)),
+          DELETE_SPEED
+        );
+        return () => clearTimeout(timer);
+      }
+      // Fully deleted: retype the resting logo.
+      setTarget(LOGO_TEXT);
+      setPhase('typing');
+    }
+  }, [phase, displayed, target]);
+
   // Determine text size based on logo size
   const textSizes = {
     sm: 'text-xl',
     md: 'text-2xl md:text-3xl',
     lg: 'text-3xl md:text-4xl'
   };
-  
+
   const textSize = textSizes[size];
-  
+
   const logoVariants = {
     initial: { opacity: 0, y: 10 },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeOut",
         delay: 0.1
@@ -200,17 +139,17 @@ const Logo: React.FC<LogoProps> = ({
         animate={animated ? "animate" : undefined}
         whileHover={animated ? "hover" : undefined}
       >
-        <div 
+        <div
           className={`${textSize} font-black tracking-tighter font-sans text-foreground cursor-pointer relative`}
           onClick={handleLogoClick}
         >
-          {messageState.displayedText}
-          {messageState.isTyping && (
+          {displayed}
+          {isAnimating && (
             <span className="inline-block w-[0.5em] h-[1.1em] bg-foreground animate-pulse ml-1"></span>
           )}
-          
+
           {/* Sparkle effect for ak.gif */}
-          {messageState.displayedText === "ak.gif" && (
+          {displayed === 'ak.gif' && (
             <motion.div
               className="absolute -top-2 -right-2"
               animate={{ rotate: 360 }}
@@ -221,7 +160,7 @@ const Logo: React.FC<LogoProps> = ({
           )}
         </div>
       </motion.div>
-      
+
       {/* Achievement Popup */}
       <AnimatePresence>
         {showAchievement && (

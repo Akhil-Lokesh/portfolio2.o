@@ -26,21 +26,33 @@ const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
+    // Build a pre-filled email and hand off to the visitor's mail client.
+    const subject = `Portfolio inquiry from ${formData.name}`;
+    const body = [
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      ...(formData.company ? [`Company: ${formData.company}`] : []),
+      '',
+      formData.message,
+    ].join('\n');
+    const mailto = `mailto:akgudapuri@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
     setIsSubmitting(false);
     setSubmitted(true);
-    
-    // Reset form after 3 seconds
+
+    // Reset confirmation after a few seconds
     setTimeout(() => {
       setSubmitted(false);
       setFormData({ name: '', email: '', company: '', message: '' });
-    }, 3000);
+    }, 4000);
   };
 
   const containerVariants = {
@@ -276,7 +288,7 @@ const Contact: React.FC = () => {
                 {submitted ? (
                   <span className="flex items-center justify-center gap-2">
                     <span>✓</span>
-                    Message sent successfully!
+                    Opening your email app — just hit send!
                   </span>
                 ) : isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

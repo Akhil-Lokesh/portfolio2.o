@@ -1,32 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { TechDomain, TimeBasedFeatures } from '../../types';
 
-interface TimeBasedFeatures {
-  isLateNight: boolean;
-  isFridayAfternoon: boolean;
-  isProgrammerDay: boolean;
-  timeMessage: string | null;
-}
+const MotionLink = motion(Link);
 
 interface SkillsProps {
   timeFeatures?: TimeBasedFeatures;
   konamiActive?: boolean;
-}
-
-interface Skill {
-  name: string;
-  category: string;
-  description?: string;
-  icon?: string;
-}
-
-interface TechDomain {
-  name: string;
-  label: string;
-  skills: Skill[];
-  color: string;
-  description: string;
-  icon: string;
 }
 
 const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
@@ -146,8 +127,6 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
   ];
 
   const handleDomainClick = (domainName: string) => {
-    console.log('Domain clicked:', domainName, 'Current selected:', selectedDomain);
-    
     const newCount = (domainClickCounts[domainName] || 0) + 1;
     setDomainClickCounts({ ...domainClickCounts, [domainName]: newCount });
 
@@ -166,7 +145,6 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
 
     // Toggle domain expansion - only one can be open at a time
     const newSelectedDomain = selectedDomain === domainName ? null : domainName;
-    console.log('Setting selected domain to:', newSelectedDomain);
     setSelectedDomain(newSelectedDomain);
   };
 
@@ -252,7 +230,7 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
             gridAutoFlow: 'row dense',
             gridAutoRows: 'min-content'
           }}>
-            {techDomains.map((domain, index) => (
+            {techDomains.map((domain) => (
               <motion.div
                 key={domain.name}
                 variants={itemVariants}
@@ -417,21 +395,21 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
           <p className="text-foreground/60 font-sans mb-6">
             Ready to apply these diverse technologies to solve your challenges?
           </p>
-          <motion.a
-            href="/contact"
+          <MotionLink
+            to="/contact"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
             Let's build something
-            <motion.span 
+            <motion.span
               className="ml-2"
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               →
             </motion.span>
-          </motion.a>
+          </MotionLink>
         </motion.div>
       </motion.div>
     </div>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+const MotionLink = motion(Link);
 
 const About: React.FC = () => {
   // Typewriter effect for roles
@@ -91,7 +94,7 @@ const About: React.FC = () => {
               <div className="space-y-6">
                 <p className="text-foreground/85 font-sans leading-relaxed text-lg">
                   <strong>Plot twist:</strong> I traded samosas for Silicon Valley dreams, and it's been quite the algorithm. 
-                  From Hyderabad's tech scene to San Jose's innovation playground – I'm <strong>Gudapari Akhil Kumar</strong>, 
+                  From Hyderabad's tech scene to San Jose's innovation playground – I'm <strong>Gudapuri Akhil Kumar</strong>, 
                   currently collecting my second degree (Data Analytics at SJSU) while building systems that turn chaos into clarity. 
                   The 8,000-mile journey from my Computer Science Engineering degree (Vasavi College, 2019-2023) to Silicon Valley 
                   wasn't just about changing zip codes. It was about evolving from someone who builds things that work to someone 
@@ -440,21 +443,21 @@ const About: React.FC = () => {
           variants={itemVariants}
           className="text-center mt-24 pb-24"
         >
-          <motion.a
-            href="/contact"
+          <MotionLink
+            to="/contact"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
             Let's build something together
-            <motion.span 
+            <motion.span
               className="ml-2"
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               →
             </motion.span>
-          </motion.a>
+          </MotionLink>
         </motion.div>
       </motion.div>
     </div>

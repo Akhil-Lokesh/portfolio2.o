@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { TechDomain, TimeBasedFeatures } from '../../types';
 import MagneticButton from '../interactive/MagneticButton';
+import SkillConstellation from '../interactive/SkillConstellation';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useIsTouchDevice } from '../../hooks/useIsTouchDevice';
 
 const MotionLink = motion(Link);
 
@@ -15,6 +18,10 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
   const [domainClickCounts, setDomainClickCounts] = useState<{ [key: string]: number }>({});
   const [easterEggMessage, setEasterEggMessage] = useState<string | null>(null);
+
+  const reduced = usePrefersReducedMotion();
+  const isTouch = useIsTouchDevice();
+  const useConstellation = !reduced && !isTouch;
 
   const techDomains: TechDomain[] = [
     {
@@ -226,7 +233,19 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
             </p>
           </div>
 
-          <div className="grid gap-6 items-start" style={{ 
+          {useConstellation && (
+            <div className="mb-10">
+              <SkillConstellation
+                domains={techDomains}
+                selectedDomain={selectedDomain}
+                onSelectDomain={handleDomainClick}
+              />
+              <p className="text-center text-xs font-mono text-foreground/40 mt-4">
+                Hover to explore · drag the nodes · click a domain for details
+              </p>
+            </div>
+          )}
+          <div className={`${useConstellation ? 'hidden' : ''} grid gap-6 items-start`} style={{
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(350px, 100%), 1fr))',
             gridAutoFlow: 'row dense',
             gridAutoRows: 'min-content'
@@ -361,6 +380,37 @@ const Skills: React.FC<SkillsProps> = ({ timeFeatures, konamiActive }) => {
               </motion.div>
             ))}
           </div>
+          {useConstellation && selectedDomain && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-8 max-w-2xl mx-auto bg-surface/30 border border-white/10 rounded-2xl p-6"
+            >
+              {(() => {
+                const domain = techDomains.find((d) => d.name === selectedDomain);
+                if (!domain) return null;
+                return (
+                  <>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-2xl">{domain.icon}</span>
+                      <h4 className="font-display font-semibold text-foreground text-lg">{domain.label}</h4>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {domain.skills.map((skill) => (
+                        <div key={skill.name} className="flex items-start gap-3 p-3 bg-surface/20 rounded-xl">
+                          <span className="text-lg">{skill.icon}</span>
+                          <div>
+                            <div className="font-display font-medium text-foreground text-sm">{skill.name}</div>
+                            <div className="text-xs text-foreground/70 font-sans">{skill.description}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Technology Overview */}

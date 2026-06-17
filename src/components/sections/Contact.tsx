@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Reveal from '../interactive/Reveal';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -348,10 +349,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Call to Action */}
-        <motion.div 
-          variants={itemVariants}
-          className="text-center mt-16 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 border border-white/5"
-        >
+        <Reveal className="text-center mt-16 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 border border-white/5">
           <h3 className="text-xl font-display font-bold mb-3 text-foreground">
             Ready to start building?
           </h3>
@@ -361,7 +359,7 @@ const Contact: React.FC = () => {
           <p className="text-foreground/60 font-sans text-sm">
             Let's figure it out together.
           </p>
-        </motion.div>
+        </Reveal>
       </motion.div>
     </div>
   );

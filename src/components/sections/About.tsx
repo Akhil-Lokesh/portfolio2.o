@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import MagneticButton from '../interactive/MagneticButton';
 
 const MotionLink = motion(Link);
 
@@ -443,21 +444,23 @@ const About: React.FC = () => {
           variants={itemVariants}
           className="text-center mt-24 pb-24"
         >
-          <MotionLink
-            to="/contact"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Let's build something together
-            <motion.span
-              className="ml-2"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+          <MagneticButton>
+            <MotionLink
+              to="/contact"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              →
-            </motion.span>
-          </MotionLink>
+              Let's build something together
+              <motion.span
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </MotionLink>
+          </MagneticButton>
         </motion.div>
       </motion.div>
     </div>

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/projects';
+import Reveal from '../interactive/Reveal';
+import MagneticButton from '../interactive/MagneticButton';
+import TiltCard from '../interactive/TiltCard';
 
 const MotionLink = motion(Link);
 
@@ -51,12 +54,8 @@ const Work: React.FC = () => {
         {/* Projects Grid */}
         <div className="space-y-8">
           {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={projectVariants}
-              className="bg-surface/30 rounded-2xl border border-white/5 overflow-hidden hover:border-white/10 transition-all duration-300"
-              whileHover={{ y: -4 }}
-            >
+            <motion.div key={project.id} variants={projectVariants}>
+              <TiltCard className="bg-surface/30 rounded-2xl border border-white/5 overflow-hidden hover:border-white/10 transition-all duration-300">
               <div className="p-6 md:p-8">
                 <div className="flex flex-col md:flex-row md:items-start justify-between mb-6">
                   <div className="flex-1">
@@ -174,34 +173,34 @@ const Work: React.FC = () => {
                   )}
                 </AnimatePresence>
               </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <motion.div 
-          variants={projectVariants}
-          className="text-center mt-16"
-        >
+        <Reveal className="text-center mt-16">
           <p className="text-foreground/60 font-sans mb-6">
             Interested in working together on the next challenge?
           </p>
-          <MotionLink
-            to="/contact"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Let's discuss your project
-            <motion.span
-              className="ml-2"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+          <MagneticButton>
+            <MotionLink
+              to="/contact"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-display font-semibold text-white hover:shadow-2xl transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              →
-            </motion.span>
-          </MotionLink>
-        </motion.div>
+              Let's discuss your project
+              <motion.span
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </MotionLink>
+          </MagneticButton>
+        </Reveal>
       </motion.div>
     </div>
   );

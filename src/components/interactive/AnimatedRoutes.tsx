@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import PageTransition from './PageTransition';
-import Hub from '../../pages/Hub';
+import Home from '../home/Home';
 import { TimeBasedFeatures } from '../../types';
 
 const About = React.lazy(() => import('../sections/About'));
@@ -27,7 +27,7 @@ const AnimatedRoutes: React.FC<AnimatedRoutesProps> = ({ timeFeatures, konamiAct
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Hub /></PageTransition>} />
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route
           path="/about"
           element={

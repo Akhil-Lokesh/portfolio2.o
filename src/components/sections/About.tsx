@@ -13,15 +13,12 @@ const About: React.FC = () => {
 
   useEffect(() => {
     const roles = [
-      "Son", 
-      "Student", 
-      "Friend", 
-      "Brother", 
-      "CS Engineer", 
-      "Data Analyst", 
-      "Frontend Engineer", 
-      "Prompt Engineer", 
-      "Vibe Coder"
+      "Data Engineer",
+      "ML Engineer",
+      "Full-Stack Developer",
+      "Data Analyst",
+      "CS Engineer",
+      "Vibe Coder (allegedly)"
     ];
     
     const currentRole = roles[currentRoleIndex];
@@ -114,8 +111,8 @@ const About: React.FC = () => {
                 </p>
 
                 <p className="text-foreground/85 font-sans leading-relaxed">
-                  <strong>Plot twist #2:</strong> I worked with AI to write this. Because if you're going to talk about 
-                  human-AI collaboration, might as well walk the walk, right?
+                  <strong>Plot twist #2:</strong> I built this with AI in the loop. If I'm going to talk about
+                  human-AI collaboration, I'd rather ship it than slide-deck it.
                 </p>
               </div>
             </div>

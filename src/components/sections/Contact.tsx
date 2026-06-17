@@ -343,6 +343,17 @@ const Contact: React.FC = () => {
                   <span>💼</span>
                   LinkedIn
                 </motion.a>
+                <motion.a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-surface/20 rounded-full text-foreground/70 hover:text-foreground border border-white/5 hover:border-white/20 transition-all duration-300 text-sm font-mono"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>📄</span>
+                  Résumé
+                </motion.a>
               </div>
             </motion.div>
           </motion.div>

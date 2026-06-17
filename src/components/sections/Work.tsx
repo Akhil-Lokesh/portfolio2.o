@@ -67,6 +67,11 @@ const Work: React.FC = () => {
                         {project.year}
                       </span>
                     </div>
+                    {project.hook && (
+                      <p className="text-secondary/90 font-display italic text-sm leading-relaxed mb-2">
+                        {project.hook}
+                      </p>
+                    )}
                     <p className="text-foreground/80 font-sans leading-relaxed mb-4">
                       {project.description}
                     </p>
@@ -103,18 +108,32 @@ const Work: React.FC = () => {
                     </motion.span>
                   </motion.button>
                   
-                  {project.githubUrl && (
-                    <motion.a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-foreground/60 hover:text-foreground transition-colors font-mono text-sm"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <span>GitHub</span>
-                      <span>↗</span>
-                    </motion.a>
-                  )}
+                  <div className="flex items-center gap-4">
+                    {project.githubUrl && (
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-foreground/60 hover:text-foreground transition-colors font-mono text-sm"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <span>GitHub</span>
+                        <span>↗</span>
+                      </motion.a>
+                    )}
+                    {project.liveUrl && (
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-foreground/60 hover:text-foreground transition-colors font-mono text-sm"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <span>Live</span>
+                        <span>↗</span>
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
 
                 {/* Detailed Content */}

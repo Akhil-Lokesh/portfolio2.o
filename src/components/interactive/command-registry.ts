@@ -33,7 +33,7 @@ export function getCommands(ctx: CommandContext): Command[] {
     { id: 'nav-skills', label: 'Go to Skills', group: 'Navigate', keywords: 'tech stack', perform: () => ctx.navigate('/skills') },
     { id: 'nav-contact', label: 'Go to Contact', group: 'Navigate', keywords: 'email reach hire', perform: () => ctx.navigate('/contact') },
     { id: 'action-resume', label: 'Download résumé', group: 'Actions', keywords: 'cv pdf', perform: () => openExternal('/resume.pdf') },
-    { id: 'action-email', label: 'Copy email address', group: 'Actions', keywords: 'contact mail', perform: () => { if (navigator.clipboard) navigator.clipboard.writeText(EMAIL); } },
+    { id: 'action-email', label: 'Copy email address', group: 'Actions', keywords: 'contact mail', perform: () => { navigator.clipboard?.writeText(EMAIL).catch(() => {}); } },
     { id: 'action-github', label: 'Open GitHub', group: 'Actions', keywords: 'code repos', perform: () => openExternal(GITHUB) },
     { id: 'action-linkedin', label: 'Open LinkedIn', group: 'Actions', keywords: 'profile network', perform: () => openExternal(LINKEDIN) },
     { id: 'fun-matrix', label: 'Enter the Matrix', group: 'Fun', keywords: 'rain easter egg konami', perform: () => ctx.triggerMatrix() },

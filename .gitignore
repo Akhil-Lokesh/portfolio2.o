@@ -40,3 +40,6 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# Scratch/brainstorm state
+.superpowers/

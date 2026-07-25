@@ -2,6 +2,24 @@ import { Project } from '../types';
 
 export const projects: Project[] = [
   {
+    id: 'viraha',
+    title: 'Viraha',
+    description: 'Full-stack travel memory platform — "Letterboxd for travel" — where location-tagged photo memories live on an interactive map, with realtime notifications, geospatial discovery, and a Dark Cinematic UI.',
+    hook: 'Letterboxd for travel — every memory pinned to the spot it actually happened.',
+    detailedDescription: 'Built an end-to-end social platform for documenting travel as location-tagged posts, albums, and journals — browsable on a map and discoverable through the people you follow. Architected as a typed Next.js App Router frontend over an Express + Prisma API, backed by PostGIS for geospatial queries and Redis for caching and realtime delivery.',
+    keyFeatures: [
+      'Interactive map canvas (MapLibre GL + PostGIS) for browsing memories by location',
+      'Dual-mode feed — Local (following-based) and Traveling (location-based) discovery',
+      'Realtime notifications and activity via Server-Sent Events over Redis',
+      'Posts, albums, and markdown journals with per-item privacy controls',
+      'JWT auth with refresh-token rotation + Google OAuth, hardened with Helmet, CSRF, Zod validation, and Redis-backed rate limiting'
+    ],
+    technicalChallenge: 'Delivering location-aware discovery at interactive speeds meant pushing geospatial proximity and bounding-box queries into PostGIS rather than the application layer, while keeping the realtime activity feed consistent across SSE clients through Redis — all behind a security model (per-content privacy, blocking, mutes) enforced uniformly across every read path.',
+    technologies: ['Next.js', 'React', 'Express', 'PostgreSQL + PostGIS', 'Prisma', 'Redis', 'TypeScript', 'MapLibre GL', 'Cloudflare R2'],
+    githubUrl: '',
+    year: 2026
+  },
+  {
     id: 'spotify-analytics',
     title: 'Spotify Artist Analytics',
     description: 'Modern data stack pipeline processing 73K+ music streaming records with automated ETL/ELT workflows and 40% faster processing through incremental loading.',

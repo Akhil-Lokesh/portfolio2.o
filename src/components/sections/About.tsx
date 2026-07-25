@@ -60,6 +60,84 @@ const About: React.FC = () => {
     }
   };
 
+  // Combined chronological timeline — education + experience interleaved.
+  // Tailwind needs full literal class strings (purge-safe), so accents come from this map.
+  const accentStyles: Record<string, { text: string; dot: string; hoverBorder: string; tag: string }> = {
+    primary: {
+      text: 'text-primary',
+      dot: 'from-primary to-secondary',
+      hoverBorder: 'hover:border-primary/20',
+      tag: 'bg-primary/15 text-primary'
+    },
+    secondary: {
+      text: 'text-secondary',
+      dot: 'from-secondary to-accent',
+      hoverBorder: 'hover:border-secondary/20',
+      tag: 'bg-secondary/15 text-secondary'
+    },
+    accent: {
+      text: 'text-accent',
+      dot: 'from-accent to-primary',
+      hoverBorder: 'hover:border-accent/20',
+      tag: 'bg-accent/15 text-accent'
+    }
+  };
+  const accentKeys = ['primary', 'secondary', 'accent'];
+
+  const journey: Array<{
+    kind: string;
+    icon: string;
+    period: string;
+    duration: string;
+    title: string;
+    subtitle: string;
+    org: string;
+    detail: string;
+    current?: boolean;
+  }> = [
+    {
+      kind: 'Education',
+      icon: '🎓',
+      period: '2019 – 2023',
+      duration: '4 Years',
+      title: "Bachelor's in Technology",
+      subtitle: 'Computer Science Engineering',
+      org: 'Vasavi College Of Engineering',
+      detail: 'Foundation in CS fundamentals, algorithms, and software development'
+    },
+    {
+      kind: 'Experience',
+      icon: '🌱',
+      period: 'Sep 2021 – Jan 2022',
+      duration: '5 Months',
+      title: 'Data Analytics Intern',
+      subtitle: 'Aviac Technologies',
+      org: 'Hyderabad, India',
+      detail: 'Analyzed agricultural datasets with Python and SQL, turning domain requirements into automated reporting systems'
+    },
+    {
+      kind: 'Experience',
+      icon: '📈',
+      period: 'Jan 2022 – Dec 2023',
+      duration: '2 Years',
+      title: 'Data Analyst',
+      subtitle: 'Aviac Technologies',
+      org: 'Hyderabad, India',
+      detail: 'Crop-health predictive models (scikit-learn/TensorFlow, 85% accuracy across 500+ samples) and hyperspectral disease-detection pipelines with SQL data management'
+    },
+    {
+      kind: 'Education',
+      icon: '📊',
+      period: '2024 – 2026',
+      duration: '2 Years',
+      title: "Master's of Engineering",
+      subtitle: 'Data Analytics',
+      org: 'San Jose State University',
+      detail: 'Advanced data science, machine learning, and analytics specialization',
+      current: true
+    }
+  ];
+
   return (
     <div className="min-h-screen pt-20 px-6 md:px-8">
       <motion.div
@@ -148,7 +226,7 @@ const About: React.FC = () => {
                 className="text-center bg-surface/30 rounded-xl p-4 border border-white/5"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="text-2xl font-display font-bold text-primary">7</div>
+                <div className="text-2xl font-display font-bold text-primary">8</div>
                 <div className="text-sm text-foreground/70">Major Projects</div>
               </motion.div>
               <motion.div 
@@ -202,236 +280,166 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Education Journey - Standalone Section */}
-        <motion.div 
+        {/* My Journey - Education & Experience Timeline */}
+        <motion.div
           variants={itemVariants}
           className="mt-24"
         >
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 text-foreground">
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Education Journey
+                My Journey
               </span>
             </h2>
             <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-sans">
-              The academic foundation that shaped my technical expertise
+              The academic and professional path that shaped how I build
             </p>
           </div>
-          
+
           <div className="relative max-w-4xl mx-auto">
             {/* Desktop Timeline Layout */}
             <div className="hidden md:block">
               {/* Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent"></div>
-              
-              <div className="space-y-24">
-                {/* Bachelor's Degree */}
-                <motion.div 
-                  className="relative flex items-center"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  {/* Left Side - Years */}
-                  <div className="w-1/2 pr-12 text-right">
-                    <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
-                      <div className="text-primary font-display font-bold text-2xl mb-3">
-                        2019 - 2023
-                      </div>
-                      <div className="text-foreground/60 text-base font-mono">
-                        4 Years
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Center Dot */}
-                  <motion.div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-background shadow-lg"
-                    whileHover={{ scale: 1.3 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                  
-                  {/* Right Side - Education Details */}
-                  <div className="w-1/2 pl-12">
-                    <motion.div 
-                      className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-300"
-                      whileHover={{ y: -4 }}
-                    >
-                      <div className="flex items-start gap-4 mb-4">
-                        <span className="text-3xl">🎓</span>
-                        <div>
-                          <h3 className="font-display font-bold text-foreground text-xl mb-2">
-                            Bachelor's in Technology
-                          </h3>
-                          <p className="text-primary font-medium text-lg">
-                            Computer Science Engineering
-                          </p>
-                        </div>
-                      </div>
-                      <p className="text-foreground/70 font-sans text-base mb-3">
-                        Vasavi College Of Engineering
-                      </p>
-                      <div className="text-sm text-foreground/50 font-mono">
-                        Foundation in CS fundamentals, algorithms, and software development
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
 
-                {/* Master's Degree */}
-                <motion.div 
-                  className="relative flex items-center"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  {/* Left Side - Education Details */}
-                  <div className="w-1/2 pr-12 text-right">
-                    <motion.div 
-                      className="bg-surface/20 rounded-2xl p-8 border border-white/5 hover:border-secondary/20 transition-all duration-300"
-                      whileHover={{ y: -4 }}
-                    >
-                      <div className="flex items-start gap-4 mb-4 justify-end">
-                        <div className="text-right">
-                          <h3 className="font-display font-bold text-foreground text-xl mb-2">
-                            Master's of Engineering
-                          </h3>
-                          <p className="text-accent font-medium text-lg">
-                            Data Analytics
-                          </p>
-                        </div>
-                        <span className="text-3xl">📊</span>
-                      </div>
-                      <p className="text-foreground/70 font-sans text-base mb-3">
-                        San Jose State University
-                      </p>
-                      <div className="text-sm text-foreground/50 font-mono">
-                        Advanced data science, machine learning, and analytics specialization
-                      </div>
-                    </motion.div>
-                  </div>
-                  
-                  {/* Center Dot */}
-                  <motion.div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-secondary to-accent rounded-full border-4 border-background shadow-lg"
-                    whileHover={{ scale: 1.3 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                  
-                  {/* Right Side - Years */}
-                  <div className="w-1/2 pl-12">
+              <div className="space-y-20">
+                {journey.map((item, i) => {
+                  const a = accentStyles[accentKeys[i % accentKeys.length]];
+                  const cardLeft = i % 2 === 1;
+
+                  const yearsBlock = (
                     <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
-                      <div className="text-secondary font-display font-bold text-2xl mb-3">
-                        2024 - 2026
+                      <div className={`${a.text} font-display font-bold text-2xl mb-3`}>
+                        {item.period}
                       </div>
-                      <div className="text-foreground/60 text-base font-mono flex items-center gap-3">
-                        <span>2 Years</span>
-                        <motion.span 
-                          className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          Current
-                        </motion.span>
+                      <div className={`text-foreground/60 text-base font-mono flex items-center gap-3 ${cardLeft ? '' : 'justify-end'}`}>
+                        <span>{item.duration}</span>
+                        {item.current && (
+                          <motion.span
+                            className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
+                            animate={{ scale: [1, 1.05, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            Current
+                          </motion.span>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  );
+
+                  const cardBlock = (
+                    <motion.div
+                      className={`bg-surface/20 rounded-2xl p-8 border border-white/5 ${a.hoverBorder} transition-all duration-300 ${cardLeft ? 'text-right' : ''}`}
+                      whileHover={{ y: -4 }}
+                    >
+                      <div className={`flex items-start gap-4 mb-4 ${cardLeft ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-3xl">{item.icon}</span>
+                        <div>
+                          <span className={`inline-block mb-2 px-2 py-0.5 rounded-full text-xs font-mono uppercase tracking-widest ${a.tag}`}>
+                            {item.kind}
+                          </span>
+                          <h3 className="font-display font-bold text-foreground text-xl mb-1">
+                            {item.title}
+                          </h3>
+                          <p className={`${a.text} font-medium text-lg`}>
+                            {item.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-foreground/70 font-sans text-base mb-3">
+                        {item.org}
+                      </p>
+                      <div className="text-sm text-foreground/50 font-mono">
+                        {item.detail}
+                      </div>
+                    </motion.div>
+                  );
+
+                  return (
+                    <motion.div
+                      key={`${item.title}-${item.period}`}
+                      className="relative flex items-center"
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className={`w-1/2 ${cardLeft ? 'pr-12' : 'pr-12 text-right'}`}>
+                        {cardLeft ? cardBlock : yearsBlock}
+                      </div>
+
+                      <motion.div
+                        className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r ${a.dot} rounded-full border-4 border-background shadow-lg`}
+                        whileHover={{ scale: 1.3 }}
+                        transition={{ duration: 0.2 }}
+                      />
+
+                      <div className="w-1/2 pl-12">
+                        {cardLeft ? yearsBlock : cardBlock}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Mobile Timeline Layout - Stacked Vertically */}
             <div className="md:hidden space-y-12">
-              {/* Bachelor's Degree - Mobile */}
-              <motion.div 
-                className="relative"
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="space-y-6">
-                  {/* Years Card */}
-                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 text-center">
-                    <div className="text-primary font-display font-bold text-3xl mb-2">
-                      2019 - 2023
-                    </div>
-                    <div className="text-foreground/60 text-lg font-mono">
-                      4 Years
-                    </div>
-                  </div>
-                  
-                  {/* Education Details Card */}
-                  <motion.div 
-                    className="bg-surface/20 rounded-2xl p-6 border border-white/5 hover:border-primary/20 transition-all duration-300"
-                    whileHover={{ y: -4 }}
+              {journey.map((item, i) => {
+                const a = accentStyles[accentKeys[i % accentKeys.length]];
+                return (
+                  <motion.div
+                    key={`${item.title}-${item.period}-m`}
+                    className="relative"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <div className="flex items-start gap-4 mb-4">
-                      <span className="text-3xl">🎓</span>
-                      <div>
-                        <h3 className="font-display font-bold text-foreground text-lg mb-2">
-                          Bachelor's in Technology
-                        </h3>
-                        <p className="text-primary font-medium text-base">
-                          Computer Science Engineering
-                        </p>
+                    <div className="space-y-6">
+                      <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 text-center">
+                        <div className={`${a.text} font-display font-bold text-3xl mb-2`}>
+                          {item.period}
+                        </div>
+                        <div className="text-foreground/60 text-lg font-mono flex items-center justify-center gap-3">
+                          <span>{item.duration}</span>
+                          {item.current && (
+                            <motion.span
+                              className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
+                              animate={{ scale: [1, 1.05, 1] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            >
+                              Current
+                            </motion.span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-foreground/70 font-sans text-base mb-3">
-                      Vasavi College Of Engineering
-                    </p>
-                    <div className="text-sm text-foreground/50 font-mono">
-                      Foundation in CS fundamentals, algorithms, and software development
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
 
-              {/* Master's Degree - Mobile */}
-              <motion.div 
-                className="relative"
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="space-y-6">
-                  {/* Years Card */}
-                  <div className="bg-surface/30 rounded-2xl p-6 border border-white/5 text-center">
-                    <div className="text-secondary font-display font-bold text-3xl mb-2">
-                      2024 - 2026
-                    </div>
-                    <div className="text-foreground/60 text-lg font-mono flex items-center justify-center gap-3">
-                      <span>2 Years</span>
-                      <motion.span 
-                        className="px-3 py-1 bg-accent/20 text-accent text-sm rounded-full"
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
+                      <motion.div
+                        className={`bg-surface/20 rounded-2xl p-6 border border-white/5 ${a.hoverBorder} transition-all duration-300`}
+                        whileHover={{ y: -4 }}
                       >
-                        Current
-                      </motion.span>
-                    </div>
-                  </div>
-                  
-                  {/* Education Details Card */}
-                  <motion.div 
-                    className="bg-surface/20 rounded-2xl p-6 border border-white/5 hover:border-secondary/20 transition-all duration-300"
-                    whileHover={{ y: -4 }}
-                  >
-                    <div className="flex items-start gap-4 mb-4">
-                      <span className="text-3xl">📊</span>
-                      <div>
-                        <h3 className="font-display font-bold text-foreground text-lg mb-2">
-                          Master's of Engineering
-                        </h3>
-                        <p className="text-accent font-medium text-base">
-                          Data Analytics
+                        <div className="flex items-start gap-4 mb-4">
+                          <span className="text-3xl">{item.icon}</span>
+                          <div>
+                            <span className={`inline-block mb-2 px-2 py-0.5 rounded-full text-xs font-mono uppercase tracking-widest ${a.tag}`}>
+                              {item.kind}
+                            </span>
+                            <h3 className="font-display font-bold text-foreground text-lg mb-1">
+                              {item.title}
+                            </h3>
+                            <p className={`${a.text} font-medium text-base`}>
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        </div>
+                        <p className="text-foreground/70 font-sans text-base mb-3">
+                          {item.org}
                         </p>
-                      </div>
-                    </div>
-                    <p className="text-foreground/70 font-sans text-base mb-3">
-                      San Jose State University
-                    </p>
-                    <div className="text-sm text-foreground/50 font-mono">
-                      Advanced data science, machine learning, and analytics specialization
+                        <div className="text-sm text-foreground/50 font-mono">
+                          {item.detail}
+                        </div>
+                      </motion.div>
                     </div>
                   </motion.div>
-                </div>
-              </motion.div>
+                );
+              })}
             </div>
           </div>
         </motion.div>

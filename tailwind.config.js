@@ -105,8 +105,13 @@ module.exports = {
         'fade-in': 'fadeIn 0.6s ease-out',
         'slide-up': 'slideUp 0.6s ease-out',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'morph': 'morph 8s ease-in-out infinite',
       },
       keyframes: {
+        morph: {
+          '0%, 100%': { borderRadius: '42% 58% 63% 37% / 41% 44% 56% 59%' },
+          '50%': { borderRadius: '60% 40% 38% 62% / 56% 58% 42% 44%' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },

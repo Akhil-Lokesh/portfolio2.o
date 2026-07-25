@@ -6,6 +6,7 @@ import FlowingBackground from '../ui/FlowingBackground';
 import MagneticButton from '../interactive/MagneticButton';
 import Avatar from './Avatar';
 import FeaturedProject from './FeaturedProject';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 const navItems = [
   { title: 'About Me', path: '/about' },
@@ -24,6 +25,8 @@ const item = {
 };
 
 const Home: React.FC = () => {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 relative py-20">
       <FlowingBackground />
@@ -34,7 +37,14 @@ const Home: React.FC = () => {
         animate="animate"
       >
         <motion.div variants={item} className="mb-6 flex justify-center">
-          <Avatar size={88} />
+          <motion.div
+            animate={reduced ? undefined : { y: [0, -6, 0] }}
+            transition={
+              reduced ? undefined : { duration: 3.2, ease: 'easeInOut', repeat: Infinity }
+            }
+          >
+            <Avatar size={140} />
+          </motion.div>
         </motion.div>
 
         <motion.h1
